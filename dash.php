@@ -1,7 +1,6 @@
 <?php
 require_once 'connect.php';
 
-// Get the user ID from the query string
 $userId = isset($_GET['user_id']) ? $_GET['user_id'] : null;
 
 if (!$userId) {
@@ -9,17 +8,15 @@ if (!$userId) {
     exit;
 }
 
-// Fetch tasks assigned to the user
 $stmt = $pdo->prepare('SELECT * FROM tasks WHERE assigned_to = ?');
 $stmt->execute([$userId]);
 $tasks = $stmt->fetchAll();
 
-// Fetch the user's name
 $userStmt = $pdo->prepare('SELECT name FROM users WHERE id = ?');
 $userStmt->execute([$userId]);
 $user = $userStmt->fetch();
 
-$userName = $user ? $user['name'] : "Unknown User"; // Default to "Unknown User" if no name found
+$userName = $user ? $user['name'] : "Unknown User"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">
