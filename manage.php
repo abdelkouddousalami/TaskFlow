@@ -19,12 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } elseif ($type == 'feature') {
             $priority = $_POST['priority'];
             $task = new Feature($title, $description, $assignedTo, $priority);
+        } else {
+            $task = new Task($title, $description, $assignedTo, $type, $status);
         }
 
         $task->createTask($pdo);
-        echo "Task created successfully!";
+        header("Location: crud.php");
+        exit;
     } else {
         echo "Please fill in all the fields.";
     }
 }
+
 ?>
